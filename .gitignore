@@ -1,0 +1,7 @@
+build/**/*.js
+build/**/*.js.map
+/node_modules
+dbconfig.js
+/DB_SET
+.env
+package-lock.json
