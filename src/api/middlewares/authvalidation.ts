@@ -7,6 +7,7 @@ import { TokenKey } from "../models/MToken";
 
 export class AuthValidation {
   validateAuth = (req: Request, res: Response, next: NextFunction) => {
+    console.log(req.headers);
     if (!req.headers.authorization) {
       const response = ResponseHelper.sendResponse(400);
       return res.status(response.code).json(response);
