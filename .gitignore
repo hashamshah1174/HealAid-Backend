@@ -5,3 +5,12 @@ dbconfig.js
 /DB_SET
 .env
 package-lock.json
+
+coverage
+coverage.json
+typechain
+typechain-types
+
+# Hardhat files
+cache
+artifacts

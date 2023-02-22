@@ -1,8 +1,8 @@
-import * as express from "express";
-import * as bodyParser from "body-parser";
+import express from "express";
+import bodyParser from "body-parser";
 import { Routes } from "./routes/routes";
-import * as cors from "cors";
-import * as morgan from "morgan";
+import cors from "cors";
+import morgan from "morgan";
 import { Database } from "../config/database";
 
 class Api {
