@@ -53,7 +53,7 @@ class RecordService {
 
   async getMyRecord(userId: string): Promise<ApiResponse> {
     try {
-      const record = Record.find({ userId: userId }).lean(true).exec();
+      const record = await Record.find({ userId: userId }).lean(true).exec();
       if (!record) {
         return ResponseHelper.sendResponse(404);
       }
@@ -67,7 +67,7 @@ class RecordService {
   }
   async viewRecord(recId: string): Promise<ApiResponse> {
     try {
-      const record = Record.findById({ recId }).lean(true).exec();
+      const record = await Record.findById({ recId }).lean(true).exec();
       if (!record) {
         return ResponseHelper.sendResponse(404);
       }

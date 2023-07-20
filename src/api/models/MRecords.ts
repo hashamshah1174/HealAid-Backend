@@ -31,6 +31,5 @@ const recordSchema: Schema = new Schema(
   },
   schemaOptions
 );
-recordSchema.index({ _id: 1, role: 1, password: 1 });
 
 export const Record = mongoose.model<IRecord>("Records", recordSchema);

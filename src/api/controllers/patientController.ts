@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { ERole } from "../interfaces/enums/EUserRole";
 import AuthService from "../services/authService";
 import RecordService from "../services/recordService";
+import ConsultationService from "../services/consultationService";
 
 export class PatientController {
   public async login(req: Request, res: Response) {
@@ -48,6 +49,47 @@ export class PatientController {
     const recId = req.params.recId;
     const doctorId = req.body.doctorId;
     const response = await RecordService.grantOrRevokeAccess(recId, doctorId);
+    return res.status(response.code).json(response);
+  }
+
+  //constultation
+
+  public async createConsultation(req: Request, res: Response) {
+    const userId = req?.locals?.auth?.userId!;
+    const response = await ConsultationService.create(userId, req);
+    return res.status(response.code).json(response);
+  }
+
+  public async myConsultation(req: Request, res: Response) {
+    const userId = req?.locals?.auth?.userId!;
+    const response = await ConsultationService.getMyConsultation(userId, false);
+    return res.status(response.code).json(response);
+  }
+
+  public async viewConsultation(req: Request, res: Response) {
+    const userId = req?.locals?.auth?.userId!;
+    const consId = req.params.consId;
+    const response = await ConsultationService.viewConsultation(consId);
+    return res.status(response.code).json(response);
+  }
+
+  public async startConsultation(req: Request, res: Response) {
+    const userId = req?.locals?.auth?.userId!;
+    const consId = req.params.consId;
+    const response = await ConsultationService.startConsultation(
+      userId,
+      consId
+    );
+    return res.status(response.code).json(response);
+  }
+
+  public async releasePaymentConsultation(req: Request, res: Response) {
+    const userId = req?.locals?.auth?.userId!;
+    const consId = req.params.consId;
+    const response = await ConsultationService.releasePaymentConsultation(
+      userId,
+      consId
+    );
     return res.status(response.code).json(response);
   }
 }
