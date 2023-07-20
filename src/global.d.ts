@@ -1,10 +1,10 @@
-
-
 declare namespace Express {
   export interface Request {
     locals: {
-      auth?: string | object | import("./api/interfaces/IToken").IToken;
-  
+      auth?: {
+        userId: string;
+        role: import("./api/interfaces/enums/EUserRole").ERole;
+      };
     };
   }
 }

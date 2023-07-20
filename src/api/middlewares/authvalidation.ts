@@ -7,7 +7,6 @@ import { TokenKey } from "../models/MToken";
 
 export class AuthValidation {
   validateAuth = (req: Request, res: Response, next: NextFunction) => {
-    console.log(req.headers);
     if (!req.headers.authorization) {
       const response = ResponseHelper.sendResponse(400);
       return res.status(response.code).json(response);
@@ -23,7 +22,10 @@ export class AuthValidation {
         }
 
         req.locals = {
-          auth: decoded,
+          auth: {
+            userId: (decoded as jwt.JwtPayload)?.userId,
+            role: (decoded as jwt.JwtPayload)?.role,
+          },
         };
 
         return next();
