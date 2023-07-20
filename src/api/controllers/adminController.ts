@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { ERole } from "../interfaces/enums/EUserRole";
-import AuthService from "../services/authservice";
+import AuthService from "../services/authService";
 
 export class AdminController {
   public async login(req: Request, res: Response) {

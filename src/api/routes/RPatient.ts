@@ -55,6 +55,30 @@ export class PatientRoute {
      * RECORD ROUTES
      *
      */
+    this.router.post(
+      "/record-create",
+      this.authvalidation.validateAuth,
+      this.upload.single("file"),
+      this.patientController.createRecord
+    );
+
+    this.router.patch(
+      "/grant-revoke-access/:recId",
+      this.authvalidation.validateAuth,
+      this.patientController.grantAndRevokeAccess
+    );
+
+    this.router.get(
+      "/get-my-doc",
+      this.authvalidation.validateAuth,
+      this.patientController.myRecord
+    );
+
+    this.router.get(
+      "/view-my-doc/:recId",
+      this.authvalidation.validateAuth,
+      this.patientController.viewRecord
+    );
 
     /**
      * RECORD ROUTES  ENDS
