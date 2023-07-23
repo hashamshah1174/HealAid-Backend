@@ -11,5 +11,5 @@ export interface IUser extends Document {
   role: ERole;
   metaMaskAddress?: string;
   privateKey?: string;
-  skills?: string[] | ISkill[];
+  slots?: string[];
 }

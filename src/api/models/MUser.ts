@@ -38,12 +38,7 @@ const userSchema: Schema = new Schema(
     privateKey: {
       type: String,
     },
-    skills: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Skills", // reference to the s model
-      },
-    ],
+    slots: [String],
   },
   schemaOptions
 );

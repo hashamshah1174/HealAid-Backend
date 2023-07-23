@@ -25,23 +25,6 @@ const doctorRegisterRule = yup.object().shape({
       contact: yup.string().required(),
       metaMaskAddress: yup.string().required(),
       privateKey: yup.string().required(),
-      skills: yup
-        .array()
-        .of(
-          yup
-            .string()
-            .test(
-              "invalid_id",
-              "No Such Skill Id Exist",
-              (value: String | undefined | null) => {
-                if (!value) {
-                  return true;
-                }
-                return isObjectIdOrHexString(value);
-              }
-            )
-        )
-        .required(),
     })
     .noUnknown(),
   query: yup.object().noUnknown(),

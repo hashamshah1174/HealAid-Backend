@@ -10,7 +10,6 @@ import { ERole } from "../interfaces/enums/EUserRole";
 import { IToken } from "../interfaces/IToken";
 import { TokenKey } from "../models/MToken";
 
-
 class TokenKeyHelper {
   async generateToken(
     userId: mongoose.Types.ObjectId,
@@ -28,10 +27,7 @@ class TokenKeyHelper {
       JWT_REFRESH_SECRET_KEY!,
       JWT_REFRSH_SECRET_EXPIRE_IN!
     );
-    await TokenKey.deleteMany({
-      userId: userId,
-      role: role,
-    }).exec();
+
     const newToken: IToken = new TokenKey({
       _id: new mongoose.Types.ObjectId(),
       userId: userId,

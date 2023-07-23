@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-import { IUser } from "../interfaces/IUser";
+
 import { IRecord } from "../interfaces/IRecord";
 
 const schemaOptions = {
@@ -22,10 +22,10 @@ const recordSchema: Schema = new Schema(
     ipfsHash: {
       type: String,
     },
-    accessDoctor: [
+    accessConsultation: [
       {
         type: Schema.Types.ObjectId,
-        ref: "Users", // reference to the s model
+        ref: "Consultations", // reference to the s model
       },
     ],
   },

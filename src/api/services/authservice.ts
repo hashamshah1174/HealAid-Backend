@@ -12,6 +12,7 @@ import { ERole } from "../interfaces/enums/EUserRole";
 import { IUser } from "../interfaces/IUser";
 import { User } from "../models/MUser";
 import mongoose from "mongoose";
+import { generateTimeSlots } from "../utils";
 
 class AuthService {
   //for authentication
@@ -198,11 +199,13 @@ class AuthService {
       }
       const salt = await bcrypt.genSalt(10);
       const password = await bcrypt.hash(req.body.password, salt);
+      const slots = generateTimeSlots();
       const userData: IUser = new User({
         _id: new mongoose.Types.ObjectId(),
         ...req.body,
         role: ERole.doctor,
         password: password,
+        slots:slots
       });
       await userData.save();
       let tokenResponse: JwtToken = await TokenHelper.generateToken(

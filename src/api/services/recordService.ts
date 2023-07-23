@@ -67,7 +67,7 @@ class RecordService {
   }
   async viewRecord(recId: string): Promise<ApiResponse> {
     try {
-      const record = await Record.findById({ recId }).lean(true).exec();
+      const record = await Record.findOne({ _id: recId }).lean(true).exec();
       if (!record) {
         return ResponseHelper.sendResponse(404);
       }
@@ -82,17 +82,17 @@ class RecordService {
 
   async grantOrRevokeAccess(
     recId: string,
-    doctorId: string
+    consultationId: string
   ): Promise<ApiResponse> {
     try {
-      const doctorObjectId = new mongoose.Types.ObjectId(doctorId);
+      const consultationObjectId = new mongoose.Types.ObjectId(consultationId);
       const updatedRecord = await Record.findByIdAndUpdate(
         recId,
         {
           $cond: {
-            if: { $in: [doctorObjectId, "$accessDoctor"] },
-            then: { $pull: { accessDoctor: doctorObjectId } }, // Doctor exists, remove from array
-            else: { $push: { accessDoctor: doctorObjectId } }, // Doctor doesn't exist, add to array
+            if: { $in: [consultationObjectId, "$accessDoctor"] },
+            then: { $pull: { accessDoctor: consultationObjectId } }, // Doctor exists, remove from array
+            else: { $push: { accessDoctor: consultationObjectId } }, // Doctor doesn't exist, add to array
           },
         },
         { new: true } // To get the updated record as the result of the update operation

@@ -69,13 +69,13 @@ export class PatientRoute {
     );
 
     this.router.get(
-      "/get-my-doc",
+      "/get-my-record",
       this.authvalidation.validateAuth,
       this.patientController.myRecord
     );
 
     this.router.get(
-      "/view-my-doc/:recId",
+      "/view-my-record/:recId",
       this.authvalidation.validateAuth,
       this.patientController.viewRecord
     );

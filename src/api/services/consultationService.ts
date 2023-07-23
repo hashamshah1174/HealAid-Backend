@@ -12,6 +12,8 @@ import {
   requestPayment,
   startConsultation,
 } from "../contractsetup/consultation/main";
+import { User } from "../models/MUser";
+import { ERole } from "../interfaces/enums/EUserRole";
 
 class ConsultationService {
   protected web3: Web3;
@@ -19,6 +21,41 @@ class ConsultationService {
     this.web3 = new Web3(
       new Web3.providers.HttpProvider("http://localhost:8545")
     );
+  }
+  async getDoctorList(): Promise<ApiResponse> {
+    try {
+      const doctorDetail = await User.find({ role: ERole.doctor })
+        .lean(true)
+        .exec();
+
+      return ResponseHelper.sendSuccessResponse(
+        "Doctor list fetched successfully",
+        doctorDetail
+      );
+    } catch (error) {
+      return ResponseHelper.sendResponse(500, (error as Error).message);
+    }
+  }
+
+  async viewDoctor(docId: string): Promise<ApiResponse> {
+    try {
+      const doctorDetail = await User.findOne({
+        role: ERole.doctor,
+        _id: docId,
+      })
+        .lean(true)
+        .exec();
+
+      if (!doctorDetail) {
+        return ResponseHelper.sendResponse(404);
+      }
+      return ResponseHelper.sendSuccessResponse(
+        "Doctor  fetchedSuccessfully",
+        doctorDetail
+      );
+    } catch (error) {
+      return ResponseHelper.sendResponse(500, (error as Error).message);
+    }
   }
   async create(userId: string, req: Request): Promise<ApiResponse> {
     try {

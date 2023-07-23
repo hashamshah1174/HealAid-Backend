@@ -41,3 +41,29 @@ export const convertFormDataToObject = (data: Data): Data => {
   }
   return result;
 };
+
+export const generateTimeSlots = () => {
+  const timeSlots = [];
+  let startTime = new Date();
+  startTime.setHours(9, 0, 0, 0);
+
+  const endTime = new Date();
+  endTime.setHours(21, 0, 0, 0);
+
+  while (startTime < endTime) {
+    const startHour = startTime.getHours().toString().padStart(2, "0");
+    const startMinute = startTime.getMinutes().toString().padStart(2, "0");
+
+    const endTime = new Date(startTime);
+    endTime.setMinutes(endTime.getMinutes() + 30);
+    const endHour = endTime.getHours().toString().padStart(2, "0");
+    const endMinute = endTime.getMinutes().toString().padStart(2, "0");
+
+    const timeSlot = `${startHour}:${startMinute} - ${endHour}:${endMinute}`;
+    timeSlots.push(timeSlot);
+
+    startTime.setMinutes(startTime.getMinutes() + 30);
+  }
+
+  return timeSlots;
+};
