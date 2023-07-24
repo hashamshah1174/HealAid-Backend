@@ -84,6 +84,54 @@ export class PatientRoute {
      * RECORD ROUTES  ENDS
      *
      */
+    /**
+     * CONSULTATION ROUTES
+     *
+     */
+    this.router.get(
+      "/get-doctor-list",
+      this.authvalidation.validateAuth,
+      this.patientController.getDoctorList
+    );
+
+    this.router.get(
+      "/view-doctor/:docId",
+      this.authvalidation.validateAuth,
+      this.patientController.viewDoctor
+    );
+
+    this.router.post(
+      "/create-consultation",
+      this.authvalidation.validateAuth,
+      this.patientController.createConsultation
+    );
+
+    this.router.get(
+      "/get-my-consultation",
+      this.authvalidation.validateAuth,
+      this.patientController.myConsultation
+    );
+    this.router.get(
+      "/view-consultation/:consId",
+      this.authvalidation.validateAuth,
+      this.patientController.viewConsultation
+    );
+
+    this.router.get(
+      "/start-consultation/:consId",
+      this.authvalidation.validateAuth,
+      this.patientController.startConsultation
+    );
+    this.router.get(
+      "/release-payment-consultation/:consId",
+      this.authvalidation.validateAuth,
+      this.patientController.releasePaymentConsultation
+    );
+
+    /**
+     * CONSULTATION ROUTES  END
+     *
+     */
 
     api.use("/patient", this.router);
   }

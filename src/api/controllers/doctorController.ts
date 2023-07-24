@@ -32,7 +32,7 @@ export class DoctorController {
 
   public async viewConsultation(req: Request, res: Response) {
     const userId = req?.locals?.auth?.userId!;
-    const recId = req.params.recId;
+    const recId = req.params.consId;
     const response = await ConsultationService.viewConsultation(recId);
     return res.status(response.code).json(response);
   }

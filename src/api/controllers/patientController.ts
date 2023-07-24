@@ -54,6 +54,17 @@ export class PatientController {
 
   //constultation
 
+  public async getDoctorList(req: Request, res: Response) {
+    const userId = req?.locals?.auth?.userId!;
+    const response = await ConsultationService.getDoctorList();
+    return res.status(response.code).json(response);
+  }
+  public async viewDoctor(req: Request, res: Response) {
+    const userId = req?.locals?.auth?.userId!;
+    const docId = req.params.docId;
+    const response = await ConsultationService.viewDoctor(docId);
+    return res.status(response.code).json(response);
+  }
   public async createConsultation(req: Request, res: Response) {
     const userId = req?.locals?.auth?.userId!;
     const response = await ConsultationService.create(userId, req);

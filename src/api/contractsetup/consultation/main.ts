@@ -17,7 +17,7 @@ const consultationABI = consultationArtifact.abi;
 
 async function getConsultationContract(): Promise<ConsultationContract> {
   const provider = new ethers.providers.JsonRpcProvider(
-    "http://localhost:8545"
+    "http://127.0.0.1:8545"
   );
   const signer = provider.getSigner(0);
   const consultationContractAddress =

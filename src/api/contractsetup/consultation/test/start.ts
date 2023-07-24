@@ -1,7 +1,7 @@
 import Web3 from "web3";
 
 import { startConsultation } from "../main";
-const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+const web3 = new Web3(new Web3.providers.HttpProvider("http://127.0.0.1:8545"));
 const amount = web3.utils.toWei("0.0000000001", "ether");
 const DOCTOR_ACCOUNT = "0x3C44CdDdB6a900fa2b585dd299e03d12FA4293BC";
 const DOCTOR_PRIVATE_KEY =

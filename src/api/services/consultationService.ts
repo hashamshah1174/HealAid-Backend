@@ -19,7 +19,7 @@ class ConsultationService {
   protected web3: Web3;
   constructor() {
     this.web3 = new Web3(
-      new Web3.providers.HttpProvider("http://localhost:8545")
+      new Web3.providers.HttpProvider("http://127.0.0.1:8545")
     );
   }
   async getDoctorList(): Promise<ApiResponse> {
@@ -99,7 +99,7 @@ class ConsultationService {
   }
   async viewConsultation(consId: string): Promise<ApiResponse> {
     try {
-      const record = await Consultation.findById({ consId })
+      const record = await Consultation.findOne({ _id: consId })
         .populate("patientId doctorId")
         .lean(true)
         .exec();
@@ -150,6 +150,14 @@ class ConsultationService {
       }
       const consultationId = this.web3.utils.keccak256(record._id.toString());
       const amount = this.web3.utils.toWei(record.amount.toString(), "ether");
+      console.log(
+        "amount",
+        amount,
+        "patientAccountAddr",
+        patientAccountAddr,
+        "doctorAccountAddr",
+        doctorAccountAddr
+      );
 
       await startConsultation(
         consultationId,
@@ -173,7 +181,7 @@ class ConsultationService {
       );
 
       const updateConsultation = await Consultation.findByIdAndUpdate(
-        { consId },
+        { _id: consId },
         {
           status: EConsultation.start,
         },
@@ -198,6 +206,7 @@ class ConsultationService {
         .populate("patientId doctorId")
         .lean(true)
         .exec();
+      console.log("userId", userId, "consId", consId);
       if (!record) {
         return ResponseHelper.sendResponse(404);
       }
@@ -237,7 +246,7 @@ class ConsultationService {
       );
 
       const updateConsultation = await Consultation.findByIdAndUpdate(
-        { consId },
+        { _id: consId },
         {
           status: EConsultation.end,
         },
@@ -304,7 +313,7 @@ class ConsultationService {
       );
 
       const updateConsultation = await Consultation.findByIdAndUpdate(
-        { consId },
+        { _id: consId },
         {
           status: EConsultation.request,
         },
@@ -371,7 +380,7 @@ class ConsultationService {
       );
 
       const updateConsultation = await Consultation.findByIdAndUpdate(
-        { consId },
+        { _id: consId },
         {
           status: EConsultation.release,
         },

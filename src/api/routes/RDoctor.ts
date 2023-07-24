@@ -54,6 +54,28 @@ export class DoctorRoute {
      *
      */
 
+    this.router.get(
+      "/get-my-consultation",
+      this.authvalidation.validateAuth,
+      this.doctorcontroller.myConsultation
+    );
+    this.router.get(
+      "/view-consultation/:consId",
+      this.authvalidation.validateAuth,
+      this.doctorcontroller.viewConsultation
+    );
+
+    this.router.get(
+      "/end-consultation/:consId",
+      this.authvalidation.validateAuth,
+      this.doctorcontroller.endConsultation
+    );
+    this.router.get(
+      "/request-payment-consultation/:consId",
+      this.authvalidation.validateAuth,
+      this.doctorcontroller.requestPaymentConsultation
+    );
+
     api.use("/doctor", this.router);
   }
 }

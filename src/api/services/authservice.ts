@@ -205,7 +205,7 @@ class AuthService {
         ...req.body,
         role: ERole.doctor,
         password: password,
-        slots:slots
+        slots: slots,
       });
       await userData.save();
       let tokenResponse: JwtToken = await TokenHelper.generateToken(
