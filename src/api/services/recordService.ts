@@ -35,13 +35,14 @@ class RecordService {
           "Unable to upload file to ipfs "
         );
       }
+      console.log("result[0]", result[0]);
 
       const ipfsHash = result[0].hash.toString();
       const record: IRecord = new Record({
         ...req.body,
         _id: new mongoose.Types.ObjectId(),
         ipfsHash: ipfsHash,
-        userId: userId,
+        patientId: userId,
       });
       await record.save();
 
@@ -53,7 +54,7 @@ class RecordService {
 
   async getMyRecord(userId: string): Promise<ApiResponse> {
     try {
-      const record = await Record.find({ userId: userId }).lean(true).exec();
+      const record = await Record.find({ patientId: userId }).lean(true).exec();
       if (!record) {
         return ResponseHelper.sendResponse(404);
       }
